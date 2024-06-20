@@ -3,6 +3,8 @@ package japbook.jpashop.repository;
 
 import jakarta.persistence.EntityManager;
 import japbook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
@@ -10,12 +12,26 @@ import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
     // JPA 표준 어노테이션
     // EntityManager를 만들어서 밑 변수에다 주입
-    @PersistenceContext
-    private EntityManager em;
+    /**
+     * 원래 EntityManager @PersistenceContext 라는 표준 어노테이션이 있어야 인젝션이 가능하나
+     * Spring boot JPA를 사용하면 @PersistenceContext 어노테이션을 지우고 @AutoWrite 사용 가능
+     * @Autowired를 사용하여 생성자 생각하는 방식 사용 가능
+     */
+    // @PersistenceContext - Spring boot JPA에서 @Autowirte로 사용 가능
+    //private EntityManager em;
+    @Autowired
+    private final EntityManager em;
+    // @RequiredArgsConstructor 사용으로 생략된 코드
+    /*
+    public MemberRepository(EntityManager em) {
+        this.em = em;
+    }
+     */
 
     // JPA에서 member를 받아서 저장
     // persist에서 바로 DB에 저장하는 것이 아니라 영속성 컨텍스트레 우선 저장(영속화)
@@ -27,7 +43,7 @@ public class MemberRepository {
     public Member findOne(Long id) {
         // 참고용으로 밑의 코드 추가
         //원래 코드 : return em.find(Member.Class, id);
-        Member member = em.find(Member.Class, id);
+        Member member = em.find(Member.class, id);
         return member;
     }
 
