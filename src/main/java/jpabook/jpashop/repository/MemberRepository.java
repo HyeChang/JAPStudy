@@ -1,13 +1,11 @@
-package japbook.jpashop.repository;
+package jpabook.jpashop.repository;
 
 
 import jakarta.persistence.EntityManager;
-import japbook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import jakarta.persistence.PersistenceContext;
 
 import java.util.List;
 
@@ -59,7 +57,7 @@ public class MemberRepository {
     // 멤버에서 이름으로 검색
     public List<Member> findByName(String name) {
         // :name = .setParameter를 통해 변수를 바인딩 하는 것.
-        return em.createQuery("select m from Member m where :name", Member.class)
+        return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList();
 

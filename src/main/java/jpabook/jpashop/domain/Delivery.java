@@ -1,4 +1,4 @@
-package japbook.jpashop.domain;
+package jpabook.jpashop.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

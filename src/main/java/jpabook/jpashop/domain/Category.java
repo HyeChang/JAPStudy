@@ -1,4 +1,4 @@
-package japbook.jpashop.domain;
+package jpabook.jpashop.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import japbook.jpashop.domain.Item.Item;
+import jpabook.jpashop.domain.Item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
