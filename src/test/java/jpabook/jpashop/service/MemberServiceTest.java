@@ -4,11 +4,9 @@ import jakarta.persistence.EntityManager;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.service.MemberService;
 import jpabook.jpashop.repository.MemberRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +28,6 @@ class MemberServiceTest {
      * JPA에서 같은 Transection에서 같은 Entity일 때 PK(ID)값이 같으면
      * 같은 영속성 컨텍스트에서 하로만 관리가 됨.
      * 실행 시 insert 문이 나오는 이유는 '@Transactional' 어노테이션이 roll Back을 시키기 때문
-     *
      */
     @Test
     //@Rollback(false)
