@@ -27,8 +27,36 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private int orderPrice;
-    private int count;
+    private int orderPrice; // 주문 가격
+    private int count; // 주문 수량
 
+    //==생성 메서==//
+    // order에서 createOrder 생성시 넘어오는(처리된?) 값들을 받아서 처리
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        // item.orderPrice 안하는 이유 => 쿠폰 적용 및 기타 할인 상황 발생 가능성 있음
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+        
+        // 주문이 들어갔으니 재고 감소
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        // 주문이 취소 되었으므로 재고를 주문 수량만큼 늘려줘야 함.
+        getItem().addStock(count);
+    }
+
+    //==조회 로직==//
+
+    /**
+     * 주문상품 전체 가격 조회
+     */
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 }
 
