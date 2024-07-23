@@ -9,10 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jpabook.jpashop.domain.Item.Item;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor (access = AccessLevel.PROTECTED) // 생성 방식을 생성 메서드 호출로 제한한다.(다른 방식으로 사용 못하게)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -30,7 +32,7 @@ public class OrderItem {
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
 
-    //==생성 메서==//
+    //==생성 메서드==//
     // order에서 createOrder 생성시 넘어오는(처리된?) 값들을 받아서 처리
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         // item.orderPrice 안하는 이유 => 쿠폰 적용 및 기타 할인 상황 발생 가능성 있음
